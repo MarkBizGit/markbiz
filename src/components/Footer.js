@@ -38,6 +38,52 @@ export default function Footer() {
     href: `#${item.toLowerCase()}`
   }));
 
+  const contactInfo = {
+    india: {
+      address: '16-11-16/A/81, Khair Mansion, First Floor, Malakpet',
+      city: 'Hyderbad',
+      state: 'Telangana',
+      country: 'India',
+      pincode: '500036',
+      phones: ['+917416667188', '+919885942667']
+    },
+    uae: {
+      address: 'Dubai',
+      country: 'UAE',
+      phones: ['+971528775716']
+    }
+  };
+
+  // Custom icons as components
+  const MapPinIcon = (props) => (
+    <svg 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      {...props}
+    >
+      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+      <circle cx="12" cy="10" r="3" />
+    </svg>
+  );
+
+  const PhoneIcon = (props) => (
+    <svg 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round" 
+      {...props}
+    >
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+    </svg>
+  );
+
   return (
     <footer className="relative bg-gradient-to-b from-gray-900 to-black text-white overflow-hidden">
       {/* Decorative Background Elements */}
@@ -49,7 +95,7 @@ export default function Footer() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand Section */}
-          <div className="col-span-1 md:col-span-2 space-y-6">
+          <div className="space-y-6">
             <a href="#" className="group inline-flex items-center space-x-2">
               <div className="relative h-10 w-10 overflow-hidden rounded-lg transform transition-transform duration-300 group-hover:scale-105">
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-orange to-primary-yellow opacity-80 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -76,6 +122,58 @@ export default function Footer() {
                   <item.icon className="h-6 w-6" aria-hidden="true" />
                 </a>
               ))}
+            </div>
+          </div>
+
+          {/* Contact Information */}
+          <div 
+            className="space-y-6"
+            onMouseEnter={() => setHoveredSection('contact')}
+            onMouseLeave={() => setHoveredSection(null)}
+          >
+            <h3 className="text-lg font-semibold relative inline-block">
+              Contact Us
+              <span className={`absolute -bottom-2 left-0 h-1 bg-gradient-to-r from-primary-orange to-primary-yellow transition-all duration-300 ${hoveredSection === 'contact' ? 'w-full' : 'w-12'}`}></span>
+            </h3>
+            
+            {/* India Office */}
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <h4 className="text-white font-medium">India Office</h4>
+                <div className="flex space-x-2 text-gray-400">
+                  <MapPinIcon className="h-5 w-5 flex-shrink-0 text-primary-orange" />
+                  <div>
+                    <p>{contactInfo.india.address}</p>
+                    <p>{contactInfo.india.city}, {contactInfo.india.state}</p>
+                    <p>{contactInfo.india.country} - {contactInfo.india.pincode}</p>
+                  </div>
+                </div>
+                <div className="flex flex-col space-y-1">
+                  {contactInfo.india.phones.map((phone, index) => (
+                    <div key={index} className="flex items-center space-x-2 text-gray-400">
+                      <PhoneIcon className="h-4 w-4 text-primary-orange" />
+                      <a href={`tel:${phone}`} className="hover:text-white transition-colors duration-300">
+                        {phone}
+                      </a>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* UAE Office */}
+              <div className="space-y-2">
+                <h4 className="text-white font-medium">UAE Office</h4>
+                <div className="flex space-x-2 text-gray-400">
+                  <MapPinIcon className="h-5 w-5 flex-shrink-0 text-primary-orange" />
+                  <p>{contactInfo.uae.address}, {contactInfo.uae.country}</p>
+                </div>
+                <div className="flex items-center space-x-2 text-gray-400">
+                  <PhoneIcon className="h-4 w-4 text-primary-orange" />
+                  <a href={`tel:${contactInfo.uae.phones[0]}`} className="hover:text-white transition-colors duration-300">
+                    {contactInfo.uae.phones[0]}
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
